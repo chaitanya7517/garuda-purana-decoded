@@ -9,7 +9,7 @@
 <meta property="og:image" content="https://garuda-purana-decoded.vercel.app/img/cover.jpg"><meta property="og:url" content="https://garuda-purana-decoded.vercel.app/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,600;0,7..72,700;1,7..72,400&family=Cormorant+Garamond:wght@600;700&family=Cinzel:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,600;0,7..72,700;1,7..72,400&family=Cormorant+Garamond:wght@600;700&family=Cinzel:wght@600&family=Kalam:wght@300;400;700&family=Mukta:wght@400;500;700&display=swap" rel="stylesheet">
 <style>/* Garuda Purana Decoded — phone-first reader. Dark by default to match the Reels. */
 :root{
   --bg:#0e0b12; --bg2:#16121c; --card:#1c1724; --line:#2e2638;
@@ -17,7 +17,7 @@
   --gold:#e3b866; --gold2:#b98a37; --ember:#ff7a45;
   --verse:#211b2b; --take:#2a1e14;
   --fs:19px; color-scheme:dark;
-  --display:"Cormorant Garamond",Georgia,serif; --body:"Literata",Georgia,serif; --caps:"Cinzel",Georgia,serif;
+  --display:"Cormorant Garamond",Georgia,serif; --body:"Literata",Georgia,serif; --caps:"Cinzel",Georgia,serif; --hand:"Kalam","Segoe Print",cursive; --lh:1.75;
 }
 :root[data-theme="light"]{
   --bg:#f8f3ea; --bg2:#f1e9db; --card:#fffaf2; --line:#e4d7c2;
@@ -26,9 +26,16 @@
   --verse:#f3eadb; --take:#fbeedb; color-scheme:light;
 }
 :root[data-size="s"]{--fs:17px} :root[data-size="l"]{--fs:21px} :root[data-size="xl"]{--fs:23px}
+/* font styles */
+:root[data-font="hand"]{--body:"Kalam","Segoe Print",cursive; --display:"Kalam",cursive; --lh:1.7}
+:root[data-font="hand"] body{font-size:calc(var(--fs) + 2px)}
+:root[data-font="hand"] .reading h3,:root[data-font="hand"] .op-text h2,:root[data-font="hand"] .hero h1,:root[data-font="hand"] .discover h2,:root[data-font="hand"] .finish h2{font-weight:700;letter-spacing:-.01em}
+:root[data-font="hand"] .hero h1 span{font-style:normal}
+:root[data-font="clean"]{--body:"Mukta",system-ui,sans-serif; --lh:1.7}
+:root[data-font="clean"] body{font-size:calc(var(--fs) + 1px)}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:64px}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:var(--fs);line-height:1.75;
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:var(--fs);line-height:var(--lh);
   font-optical-sizing:auto;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
 a{color:var(--gold)}
@@ -40,9 +47,11 @@ strong{font-weight:600;color:var(--ink)}
 .bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold2),var(--ember))}
 .topbar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:8px;
   padding:10px max(14px,env(safe-area-inset-left)) 10px max(16px,env(safe-area-inset-left));
-  background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);transform:translateY(-100%);transition:transform .25s}
-.topbar.show{transform:none}
+  background:transparent;border-bottom:1px solid transparent;transition:background .25s,border-color .25s}
+.topbar.show{background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom-color:var(--line)}
+.topbar:not(.show) .tb-title{opacity:0;pointer-events:none}
+.topbar:not(.show) .tb-actions button{background:rgba(14,11,18,.45);border-color:rgba(255,255,255,.18);color:#f3e9d8}
+.topbar:not(.show) .burger,.topbar:not(.show) .burger::before,.topbar:not(.show) .burger::after{background:#f3e9d8}
 .tb-title{font-family:var(--display);font-weight:700;font-size:1.05rem;color:var(--ink);text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tb-actions{display:flex;gap:6px}
 .tb-actions button,.dr-head button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);
@@ -154,6 +163,50 @@ strong{font-weight:600;color:var(--ink)}
 .colophon{max-width:640px;margin:0 auto;padding:24px 20px max(40px,env(safe-area-inset-bottom));font-size:.72rem;line-height:1.6;color:var(--muted);border-top:1px solid var(--line)}
 @media (min-width:700px){.op-img,.plate{margin-left:0;margin-right:0;border-radius:18px}.op-img{aspect-ratio:16/11}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.topbar{transition:none}}
+
+/* handwritten touches (all styles) */
+.takeaway p,.reflect .question,.epigraph p{font-family:var(--hand)!important;font-weight:400!important}
+.takeaway p{font-size:1.32rem!important;line-height:1.4!important}
+.takeaway{background-image:linear-gradient(transparent 31px,color-mix(in srgb,var(--gold) 14%,transparent) 32px);background-size:100% 32px;background-position:0 52px}
+.tk-label{font-family:var(--hand)!important;letter-spacing:.02em!important;text-transform:none!important;font-size:1rem!important;font-weight:700}
+.tk-label::before{content:"✎ "}
+.reading h3{display:inline;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8 C 40 3, 80 11, 120 6 S 180 4, 198 7' fill='none' stroke='%23e3b866' stroke-width='3' stroke-linecap='round' opacity='.75'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-size:100% .32em;background-position:0 100%;padding-bottom:.08em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.r-head h3+*{margin-top:12px}
+.r-head{display:block}
+.r-head .reel{display:inline-flex}
+.hand-note{font-family:var(--hand);color:var(--gold);font-size:1.05rem;line-height:1.4;margin:6px 0 0;transform:rotate(-1.2deg);transform-origin:left}
+.dn{font-family:var(--hand)!important;font-size:1rem!important}
+
+/* reading-style sheet */
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--bg2);border-top:1px solid var(--line);border-radius:20px 20px 0 0;
+  padding:18px 18px max(22px,env(safe-area-inset-bottom));display:grid;gap:16px;max-width:560px;margin:0 auto;box-shadow:0 -10px 40px rgba(0,0,0,.35)}
+.sh-row{display:grid;gap:8px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.seg.two{grid-template-columns:1fr 1fr}
+.seg button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:10px 6px;font:500 .82rem var(--body);cursor:pointer;display:grid;gap:2px;justify-items:center}
+.seg button[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset;color:var(--gold)}
+.seg span{font-size:1.5rem;line-height:1.1}
+.f-classic{font-family:"Literata",serif}.f-hand{font-family:"Kalam",cursive}.f-clean{font-family:"Mukta",sans-serif}
+
+/* one section per screen (enabled by script) */
+.paged .page{display:none}
+.paged .page.on{display:block}
+.paged .chapter{padding-top:0}
+.pnav{margin:34px 0 10px;display:grid;gap:10px}
+.next{display:block;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--gold);border-radius:18px;padding:16px 18px;position:relative}
+.next .kicker{display:block;margin-bottom:4px}
+.next b{display:block;font-family:var(--display);font-size:1.45rem;line-height:1.15;font-weight:700;padding-right:36px}
+.next small{color:var(--muted);font-size:.78rem}
+.next::after{content:"→";position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:1.6rem;color:var(--gold)}
+.prev{justify-self:start;font-size:.85rem;color:var(--muted);text-decoration:none;padding:8px 2px}
+.dots{display:flex;gap:5px;justify-content:center;margin:6px 0 0}
+.dots i{width:6px;height:6px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--gold);width:18px;border-radius:3px}
+.resume{display:block;margin:14px auto 0;font-family:var(--hand);font-size:1.05rem;color:#e3b866;text-decoration:none}
+.page-count{font-size:.72rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;text-align:center;margin-top:6px}
+
+.sheet[hidden],.drawer[hidden],.scrim[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -161,8 +214,7 @@ strong{font-weight:600;color:var(--ink)}
 <nav class="topbar" id="topbar" aria-label="Reader">
   <a class="tb-title" href="#top">Garuda Purana Decoded</a>
   <div class="tb-actions">
-    <button type="button" id="btn-size" aria-label="Text size">Aa</button>
-    <button type="button" id="btn-theme" aria-label="Light or dark"><span class="moon" aria-hidden="true"></span></button>
+    <button type="button" id="btn-aa" aria-label="Reading style" aria-expanded="false">Aa</button>
     <button type="button" id="btn-toc" aria-label="Contents" aria-expanded="false"><span class="burger" aria-hidden="true"></span></button>
   </div>
 </nav>
@@ -171,6 +223,18 @@ strong{font-weight:600;color:var(--ink)}
   <ol class="toc"><li><a href="#intro"><span class="t">Before the Journey</span><span class="m">6 min</span></a></li><li class="toc-ch"><a href="#chapter-1"><span class="t">Chapter I · The Miseries of the Sinful</span><span class="m">24 min</span></a></li><li class="toc-r"><a href="#r-the-tree-and-the-question"><span class="t">The Tree and the Question</span><span class="m">1–9</span></a></li><li class="toc-r"><a href="#r-why-anyone-goes-astray"><span class="t">Why Anyone Goes Astray</span><span class="m">10–17</span></a></li><li class="toc-r"><a href="#r-the-long-illness"><span class="t">The Long Illness</span><span class="m">18–25</span></a></li><li class="toc-r"><a href="#r-the-last-moment"><span class="t">The Last Moment</span><span class="m">26–31</span></a></li><li class="toc-r"><a href="#r-the-thumb-sized-self"><span class="t">The Thumb-Sized Self</span><span class="m">32–36</span></a></li><li class="toc-r"><a href="#r-the-first-road-and-the-return"><span class="t">The First Road, and the Return</span><span class="m">37–42</span></a></li><li class="toc-r"><a href="#r-what-offerings-can-and-cannot-do"><span class="t">What Offerings Can and Cannot Do</span><span class="m">43–46</span></a></li><li class="toc-r"><a href="#r-the-ten-days-and-the-new-body"><span class="t">The Ten Days and the New Body</span><span class="m">47–54</span></a></li><li class="toc-r"><a href="#r-the-thirteenth-day"><span class="t">The Thirteenth Day</span><span class="m">55–57</span></a></li><li class="toc-r"><a href="#r-the-sixteen-cities"><span class="t">The Sixteen Cities</span><span class="m">58–60</span></a></li><li class="toc-lock"><span class="t">Chapter II · The Way of Yama</span><span class="m">🔒</span></li><li class="toc-lock"><span class="t">Chapter III · The Torments of Yama</span><span class="m">🔒</span></li><li class="toc-lock"><span class="t">Chapter IV · The Sins That Lead to Hell</span><span class="m">🔒</span></li></ol>
 </aside>
 <div class="scrim" id="scrim" hidden></div>
+<aside class="sheet" id="sheet" aria-label="Reading style" hidden>
+  <div class="sh-row"><div class="kicker">Font style</div>
+    <div class="seg" role="group" aria-label="Font style">
+      <button type="button" data-font="classic"><span class="f-classic">Aa</span>Classic</button>
+      <button type="button" data-font="hand"><span class="f-hand">Aa</span>Handwritten</button>
+      <button type="button" data-font="clean"><span class="f-clean">Aa</span>Clean</button>
+    </div></div>
+  <div class="sh-row"><div class="kicker">Text size</div>
+    <div class="seg two"><button type="button" data-size="-1" aria-label="Smaller text">A−</button><button type="button" data-size="1" aria-label="Bigger text">A+</button></div></div>
+  <div class="sh-row"><div class="kicker">Page</div>
+    <div class="seg two"><button type="button" data-theme="dark">Night</button><button type="button" data-theme="light">Day</button></div></div>
+</aside>
 
 <header class="hero" id="top">
   <img class="hero-img" src="img/cover.jpg" alt="Garuda with golden wings above the river of the dead" fetchpriority="high">
@@ -180,6 +244,7 @@ strong{font-weight:600;color:var(--ink)}
     <p class="hero-sub">What happens to us after death? The ancient answer, explained simply, verse by verse.</p>
     <a class="btn" href="#intro">Start reading</a>
     <div class="hero-meta">Introduction + Chapter 1 · about 30 min · free</div>
+    <a class="resume" id="resume" href="#" hidden></a>
   </div>
 </header>
 
@@ -221,31 +286,101 @@ strong{font-weight:600;color:var(--ink)}
   <p>The English renderings and commentary are original. Verse numbering follows the 1911 edition of the Garuda Purana Saroddhara. This book explains a religious text for general readers; it is not medical, legal or psychological advice.</p>
 </footer>
 <script>(function(){
-  var root=document.documentElement, bar=document.getElementById('bar'), top=document.getElementById('topbar');
+  var root=document.documentElement, bar=document.getElementById('bar'), topb=document.getElementById('topbar');
   function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
   function set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
-  var t=get('gpd-theme'); if(t) root.setAttribute('data-theme',t);
-  var s=get('gpd-size'); if(s) root.setAttribute('data-size',s);
-  function onScroll(){
-    var h=document.documentElement.scrollHeight-innerHeight, y=scrollY;
-    bar.style.width=(h>0?Math.min(100,y/h*100):0)+'%';
-    top.classList.toggle('show', y>innerHeight*0.6);
-  }
-  addEventListener('scroll',onScroll,{passive:true}); onScroll();
-  document.getElementById('btn-theme').onclick=function(){
-    var n=root.getAttribute('data-theme')==='light'?'dark':'light'; root.setAttribute('data-theme',n); set('gpd-theme',n);
-    document.querySelector('meta[name=theme-color]').setAttribute('content', n==='light'?'#f8f3ea':'#0e0b12');
-  };
+  function $(s,c){return (c||document).querySelector(s)}
+  function $$(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))}
+
+  /* ---- reading style ---- */
   var sizes=['s','m','l','xl'];
-  document.getElementById('btn-size').onclick=function(){
-    var c=root.getAttribute('data-size')||'m', n=sizes[(sizes.indexOf(c)+1)%sizes.length]; root.setAttribute('data-size',n); set('gpd-size',n);
-  };
-  var dr=document.getElementById('drawer'), sc=document.getElementById('scrim'), bt=document.getElementById('btn-toc');
-  function open(o){dr.hidden=!o; sc.hidden=!o; bt.setAttribute('aria-expanded',o)}
-  bt.onclick=function(){open(true)}; sc.onclick=function(){open(false)};
-  document.getElementById('btn-close').onclick=function(){open(false)};
-  dr.addEventListener('click',function(e){if(e.target.closest('a')) open(false)});
-  addEventListener('keydown',function(e){if(e.key==='Escape') open(false)});
+  function apply(){
+    root.setAttribute('data-theme',get('gpd-theme')||'dark');
+    root.setAttribute('data-size',get('gpd-size')||'m');
+    root.setAttribute('data-font',get('gpd-font')||'classic');
+    $$('.seg button[data-font]').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.font===root.getAttribute('data-font'))});
+    $$('.seg button[data-theme]').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.theme===root.getAttribute('data-theme'))});
+    var m=$('meta[name=theme-color]'); if(m) m.setAttribute('content',root.getAttribute('data-theme')==='light'?'#f8f3ea':'#0e0b12');
+  }
+  apply();
+  $$('.seg button').forEach(function(b){b.addEventListener('click',function(){
+    if(b.dataset.font) set('gpd-font',b.dataset.font);
+    if(b.dataset.theme) set('gpd-theme',b.dataset.theme);
+    if(b.dataset.size){var c=sizes.indexOf(root.getAttribute('data-size'));c=Math.max(0,Math.min(sizes.length-1,c+(+b.dataset.size)));set('gpd-size',sizes[c]);}
+    apply();
+  })});
+
+  /* ---- drawer + sheet ---- */
+  var dr=$('#drawer'), sh=$('#sheet'), sc=$('#scrim');
+  function close(){dr.hidden=true;sh.hidden=true;sc.hidden=true;$('#btn-toc').setAttribute('aria-expanded','false');$('#btn-aa').setAttribute('aria-expanded','false')}
+  $('#btn-toc').onclick=function(){close();dr.hidden=false;sc.hidden=false;this.setAttribute('aria-expanded','true')};
+  $('#btn-aa').onclick=function(){var o=sh.hidden;close();if(o){sh.hidden=false;sc.hidden=false;this.setAttribute('aria-expanded','true')}};
+  sc.onclick=close; $('#btn-close').onclick=close;
+  addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+
+  /* ---- one section per screen ---- */
+  var ch=$('#chapter-1'), readings=$$('#chapter-1 .reading');
+  var pages=[[ $('#top'), $('.discover'), $('#intro') ]];
+  readings.forEach(function(r,i){pages.push(i===0?[$('#chapter-1 .opener'),r]:[r])});
+  pages.push([$('.finish')]);
+  var N=pages.length, cur=0;
+  function titleOf(i){
+    if(i===0) return 'Before the Journey';
+    if(i===N-1) return 'What comes next';
+    var h=$('h3',pages[i][pages[i].length-1]); return h?h.textContent:'';
+  }
+  function minsOf(i){var r=pages[i][pages[i].length-1], m=r&&r.querySelector('.r-meta span:last-child');return m?m.textContent:''}
+  pages.forEach(function(els,i){
+    els.forEach(function(e){if(e)e.classList.add('page')});
+    var host=els[els.length-1]; if(!host) return;
+    var nav=document.createElement('nav'); nav.className='pnav'; nav.setAttribute('aria-label','Sections');
+    var h='';
+    if(i<N-1){
+      var kick=i===0?'Begin Chapter I':(i===N-2?'Finish':'Next'+(minsOf(i+1)?' · '+minsOf(i+1):''));
+      h+='<a class="next" href="#" data-go="'+(i+1)+'"><span class="kicker">'+kick+'</span><b>'+(i===0?'The Miseries of the Sinful':titleOf(i+1))+'</b></a>';
+    }
+    if(i>0) h+='<a class="prev" href="#" data-go="'+(i-1)+'">← Back to '+titleOf(i-1)+'</a>';
+    h+='<div class="dots" aria-hidden="true">'+pages.map(function(_,j){return '<i'+(j===i?' class="on"':'')+'></i>'}).join('')+'</div>';
+    h+='<div class="page-count">Section '+(i+1)+' of '+N+'</div>';
+    nav.innerHTML=h; host.appendChild(nav);
+  });
+  document.body.classList.add('paged');
+  function pageOf(el){for(var i=0;i<N;i++)for(var j=0;j<pages[i].length;j++)if(pages[i][j]&&(pages[i][j]===el||pages[i][j].contains(el)))return i;return -1}
+  function show(i,target){
+    cur=Math.max(0,Math.min(N-1,i));
+    $$('.page').forEach(function(e){e.classList.remove('on')});
+    pages[cur].forEach(function(e){if(e)e.classList.add('on')});
+    ch.style.display=(cur>0&&cur<N-1)?'':'none';
+    set('gpd-page',String(cur));
+    var t=target||pages[cur][0];
+    requestAnimationFrame(function(){
+      var y=(cur===0&&!target)?0:t.getBoundingClientRect().top+scrollY-(cur===0?0:56);
+      try{scrollTo({top:Math.max(0,y),behavior:'instant'})}catch(e){scrollTo(0,Math.max(0,y))} onScroll();
+    });
+  }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a'); if(!a) return;
+    if(a.dataset.go){e.preventDefault();close();show(+a.dataset.go);return}
+    var href=a.getAttribute('href')||'';
+    if(href.charAt(0)==='#'&&href.length>1){var t=document.getElementById(href.slice(1));var p=t?pageOf(t):-1;
+      if(p>=0){e.preventDefault();close();show(p,t===pages[p][0]?null:t);}}
+  });
+  function onScroll(){
+    var h=document.documentElement.scrollHeight-innerHeight, f=h>0?Math.min(1,scrollY/h):0;
+    bar.style.width=((cur+f)/N*100)+'%';
+    topb.classList.toggle('show',cur>0||scrollY>innerHeight*0.6);
+  }
+  addEventListener('scroll',onScroll,{passive:true});
+
+  var saved=+(get('gpd-page')||0), res=$('#resume');
+  var start=0, tgt=null;
+  if(location.hash){tgt=document.getElementById(location.hash.slice(1)); if(tgt){start=Math.max(0,pageOf(tgt))}}
+  show(start,tgt&&start>0?tgt:null);
+  if(!location.hash&&saved>0&&saved<N&&res){
+    res.hidden=false; res.textContent='✎ Continue where you left off: '+titleOf(saved)+' →';
+    res.onclick=function(e){e.preventDefault();show(saved)};
+    set('gpd-page',String(saved));
+  }
 })();
 </script>
 </body></html>
